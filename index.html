@@ -3,121 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <title>Abdulla Syed | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #111;
+      --accent: #0077ff;
+      --card-bg: #ffffff;
+    }
+    [data-theme="dark"] {
+      --bg-color: #0d0d0d;
+      --text-color: #f5f5f5;
+      --accent: #66aaff;
+      --card-bg: #1a1a1a;
+    }
+
     body {
-      font-family: "Times New Roman", serif;
       margin: 0;
-      background: #000000; /* Black background */
-      color: #f5f5dc; /* Beige text */
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
     }
 
     /* Navbar */
     nav {
-      background: #111;
-      padding: 15px;
-      text-align: center;
-      border-bottom: 2px solid #f4c2c2;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--card-bg);
+      padding: 15px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+    }
+    nav .logo {
+      font-weight: bold;
+      font-size: 20px;
+      color: var(--accent);
     }
     nav a {
-      color: #f4c2c2;
+      margin: 0 12px;
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-      font-size: 18px;
+      color: var(--text-color);
+      font-weight: 500;
     }
     nav a:hover {
-      color: #ffe5b4;
+      color: var(--accent);
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
       text-align: center;
-      padding: 60px 20px;
-      background: #1a1a1a;
+      padding: 70px 20px;
+      background: linear-gradient(135deg, var(--accent), #00cc99);
+      color: white;
     }
     .hero h1 {
       margin: 0;
       font-size: 3.5em;
-      color: #ffe5b4;
-      text-shadow: 2px 2px 6px #000;
     }
     .hero p {
-      font-size: 1.2em;
-      color: #f5f5dc;
+      font-size: 1.3em;
     }
-    .links a {
-      margin: 0 10px;
-      color: #f4c2c2;
-      text-decoration: none;
+    .hero .buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: white;
+      color: var(--accent);
       font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
     }
-    .links a:hover {
-      color: #ffe5b4;
+    .hero .buttons a:hover {
+      background: var(--card-bg);
     }
 
-    /* Section Styling */
+    /* Sections */
     section {
-      padding: 40px 10%;
+      padding: 60px 10%;
     }
     section h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #ffe5b4;
+      margin-bottom: 40px;
       font-size: 2em;
-      border-bottom: 2px solid #f4c2c2;
-      display: inline-block;
-      padding-bottom: 5px;
+      color: var(--accent);
+      position: relative;
+    }
+    section h2::after {
+      content: "";
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      display: block;
+      margin: 10px auto 0;
     }
 
-    /* Cards */
-    .card {
-      background: #111;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(244, 194, 194, 0.2);
-      padding: 20px;
+    /* Education Timeline */
+    .timeline {
+      border-left: 3px solid var(--accent);
+      margin-left: 20px;
+      padding-left: 20px;
+    }
+    .timeline div {
       margin-bottom: 20px;
-      color: #f5f5dc;
+    }
+    .timeline h3 {
+      margin: 0;
+      color: var(--accent);
     }
 
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      color: #f5f5dc;
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
-    table th, table td {
-      border: 1px solid #333;
-      padding: 10px;
-      text-align: left;
+    .skill-card {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
     }
-    table th {
-      background: #f4c2c2;
-      color: #000;
-    }
-    table td {
-      background: #1a1a1a;
+    .skill-card:hover {
+      transform: translateY(-5px);
     }
 
-    /* Project Grid */
+    /* Projects */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
     .project {
-      background: #111;
-      padding: 15px;
+      background: var(--card-bg);
+      padding: 20px;
       border-radius: 12px;
-      border: 1px solid #f4c2c2;
-      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 4px solid var(--accent);
+      transition: transform 0.3s;
     }
     .project:hover {
       transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(255, 229, 180, 0.4);
     }
     .project h3 {
       margin-top: 0;
-      color: #ffe5b4;
+      color: var(--accent);
     }
 
     /* Lists */
@@ -128,35 +162,46 @@
     /* Footer */
     footer {
       text-align: center;
-      background: #111;
-      color: #f4c2c2;
-      padding: 15px;
-      margin-top: 40px;
-      border-top: 2px solid #ffe5b4;
+      background: var(--card-bg);
+      padding: 20px;
+      border-top: 2px solid var(--accent);
       font-size: 14px;
+    }
+
+    /* Theme Toggle */
+    .toggle-btn {
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 12px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#academic">Academic Experience</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#extracurriculars">Extracurriculars</a>
+    <div class="logo">Abdulla Syed</div>
+    <div>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#extracurriculars">Extracurriculars</a>
+    </div>
+    <button class="toggle-btn" onclick="toggleTheme()">🌙</button>
   </nav>
 
   <!-- Hero -->
   <div class="hero">
-    <h1>Abdulla Syed</h1>
-    <p>Engineering Student | Aspiring Developer | Tech Enthusiast</p>
-    <p>📞 +91 7795588802 | <a href="mailto:abdulla.1si22et001@gmail.com">abdulla.1si22et001@gmail.com</a></p>
-    <div class="links">
-      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a> |
-      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a> |
+    <h1>Hi, I'm Abdulla 👋</h1>
+    <p>Engineering Student | Developer | Tech Enthusiast</p>
+    <p>📞 +91 7795588802 | <a href="mailto:abdulla.1si22et001@gmail.com" style="color:white;">abdulla.1si22et001@gmail.com</a></p>
+    <div class="buttons">
+      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
+      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
       <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
     </div>
   </div>
@@ -164,43 +209,28 @@
   <!-- Education -->
   <section id="education">
     <h2>Education</h2>
-    <div class="card">
-      <table>
-        <tr>
-          <th>Institution</th>
-          <th>Course</th>
-          <th>Year</th>
-          <th>Details</th>
-        </tr>
-        <tr>
-          <td>Siddaganga Institute of Technology</td>
-          <td>B.E - Electronics & Telecommunication</td>
-          <td>2022 – 2026</td>
-          <td>CGPA: 8.4</td>
-        </tr>
-        <tr>
-          <td>PUC (PCMB)</td>
-          <td>Class 12</td>
-          <td>2022</td>
-          <td>91%</td>
-        </tr>
-      </table>
+    <div class="timeline">
+      <div>
+        <h3>Siddaganga Institute of Technology</h3>
+        <p>B.E. in Electronics & Telecommunication (2022–2026) | CGPA: 8.4</p>
+      </div>
+      <div>
+        <h3>Pre-University Course (PUC)</h3>
+        <p>PCMB (2022) | 91%</p>
+      </div>
     </div>
   </section>
 
   <!-- Skills -->
   <section id="skills">
     <h2>Skills</h2>
-    <div class="card">
-      <table>
-        <tr><th>Category</th><th>Skills</th></tr>
-        <tr><td>Languages</td><td>C++</td></tr>
-        <tr><td>Web Development</td><td>HTML, CSS</td></tr>
-        <tr><td>Database & Framework</td><td>SQL, CodeIgniter 3</td></tr>
-        <tr><td>CS Fundamentals</td><td>DSA, OOP, OS, DCN</td></tr>
-        <tr><td>Developer Tools</td><td>SQL, Git, GitHub, VS Code, TinkerCad, AWR software, XAMPP</td></tr>
-        <tr><td>Other Skills</td><td>Event Planning, Communication, Team Management</td></tr>
-      </table>
+    <div class="skills-grid">
+      <div class="skill-card"><b>Languages:</b> C++</div>
+      <div class="skill-card"><b>Web Development:</b> HTML, CSS</div>
+      <div class="skill-card"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
+      <div class="skill-card"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
+      <div class="skill-card"><b>Developer Tools:</b> Git/GitHub, VS Code, TinkerCad, AWR, XAMPP</div>
+      <div class="skill-card"><b>Others:</b> Event Planning, Communication, Team Management</div>
     </div>
   </section>
 
@@ -211,63 +241,54 @@
       <div class="project">
         <h3>AIGI – Ask It, Get It</h3>
         <p><b>Tech:</b> CodeIgniter 3, HTML, CSS, SQL</p>
-        <p>Centralized digital platform for academic resources and placement support.</p>
+        <p>Centralized digital platform to streamline academic resources & placements.</p>
       </div>
       <div class="project">
         <h3>Design & Analysis of Bandpass Filter</h3>
-        <p><b>Tech:</b> Microstrip Technology, RF Communication</p>
-        <p>Developed a bandpass filter with improved signal transmission and selectivity.</p>
+        <p><b>Tech:</b> Microstrip Technology, RF</p>
+        <p>Optimized bandpass filter design with high selectivity & minimal loss.</p>
       </div>
       <div class="project">
         <h3>Automated Irrigation System</h3>
-        <p><b>Tech:</b> Arduino, RF Communication</p>
-        <p>Smart irrigation system using soil & temperature sensors at 433 MHz.</p>
+        <p><b>Tech:</b> Arduino, RF</p>
+        <p>Smart irrigation using sensors & wireless communication.</p>
       </div>
       <div class="project">
         <h3>Automated Grass Cutter (IoT)</h3>
         <p><b>Tech:</b> Arduino, Sensors</p>
-        <p>Automated IoT-enabled grass cutter with remote monitoring.</p>
+        <p>IoT-enabled autonomous grass cutter with remote monitoring.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Academic Experience -->
-  <section id="academic">
-    <h2>Academic Experience</h2>
-    <div class="card">
-      <ul>
-        <li>Presented research paper on <b>Bandpass Filter Design using Coupled Lines</b> at IEEE ICSSES 2025.</li>
-        <li>Conducted electromagnetic simulations achieving improved stopband rejection and high selectivity.</li>
-      </ul>
     </div>
   </section>
 
   <!-- Achievements -->
   <section id="achievements">
     <h2>Achievements</h2>
-    <div class="card">
-      <ul>
-        <li>Top 10 finalist – National Level Hackathon (IIC), 2024</li>
-      </ul>
-    </div>
+    <ul>
+      <li>Top 10 finalist – National Hackathon (IIC), 2024</li>
+    </ul>
   </section>
 
   <!-- Extracurriculars -->
   <section id="extracurriculars">
     <h2>Extracurriculars & Leadership</h2>
-    <div class="card">
-      <ul>
-        <li>Event Management Lead – Institution’s Innovation Council (IIC), SIT</li>
-        <li>Volunteer – Freshers recruitment in Team IIC (2025)</li>
-        <li>Led and coordinated volunteers in college fests and departmental events</li>
-      </ul>
-    </div>
+    <ul>
+      <li>Event Management Lead – IIC, SIT</li>
+      <li>Volunteer – Freshers recruitment (2025)</li>
+      <li>Led volunteers in college festivals & departmental events</li>
+    </ul>
   </section>
 
   <!-- Footer -->
   <footer>
-    © 2025 Abdulla Syed | Portfolio
+    © 2025 Abdulla Syed | Built with ❤️
   </footer>
 
+  <script>
+    function toggleTheme() {
+      document.body.dataset.theme =
+        document.body.dataset.theme === "dark" ? "light" : "dark";
+    }
+  </script>
 </body>
 </html>
