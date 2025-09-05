@@ -6,131 +6,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg-color: #fdfdfd;
-      --text-color: #111;
-      --accent: #0077ff;
-      --card-bg: #ffffff;
+      --primary: #0077ff;
+      --secondary: #00cc99;
+      --bg: #fdfdfd;
+      --text: #222;
+      --card: #ffffff;
     }
-    [data-theme="dark"] {
-      --bg-color: #0d0d0d;
-      --text-color: #f5f5f5;
-      --accent: #66aaff;
-      --card-bg: #1a1a1a;
-    }
-
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
     }
 
     /* Navbar */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 10;
-      background: var(--card-bg);
-      padding: 15px 10%;
+      left: 0;
+      right: 0;
+      background: var(--card);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--accent);
+      padding: 12px 8%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
     }
     nav .logo {
       font-weight: bold;
+      color: var(--primary);
       font-size: 20px;
-      color: var(--accent);
     }
     nav a {
       margin: 0 12px;
       text-decoration: none;
-      color: var(--text-color);
+      color: var(--text);
       font-weight: 500;
     }
     nav a:hover {
-      color: var(--accent);
+      color: var(--primary);
     }
 
     /* Hero */
     .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 70px 20px;
-      background: linear-gradient(135deg, var(--accent), #00cc99);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
+      padding: 20px;
     }
     .hero h1 {
+      font-size: 3em;
       margin: 0;
-      font-size: 3.5em;
     }
     .hero p {
-      font-size: 1.3em;
+      font-size: 1.2em;
+      margin-top: 10px;
     }
-    .hero .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      border-radius: 25px;
-      background: white;
-      color: var(--accent);
-      font-weight: bold;
+    .socials {
+      margin-top: 20px;
+    }
+    .socials a {
+      margin: 0 10px;
       text-decoration: none;
+      color: white;
+      font-weight: bold;
       transition: 0.3s;
     }
-    .hero .buttons a:hover {
-      background: var(--card-bg);
+    .socials a:hover {
+      color: #ffe066;
     }
 
-    /* Sections */
+    /* Section */
     section {
-      padding: 60px 10%;
+      padding: 80px 10% 40px;
     }
     section h2 {
       text-align: center;
-      margin-bottom: 40px;
       font-size: 2em;
-      color: var(--accent);
-      position: relative;
-    }
-    section h2::after {
-      content: "";
-      width: 60px;
-      height: 3px;
-      background: var(--accent);
-      display: block;
-      margin: 10px auto 0;
+      margin-bottom: 40px;
+      color: var(--primary);
     }
 
-    /* Education Timeline */
+    /* Education & Experience */
     .timeline {
-      border-left: 3px solid var(--accent);
-      margin-left: 20px;
+      border-left: 3px solid var(--primary);
       padding-left: 20px;
     }
     .timeline div {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .timeline h3 {
       margin: 0;
-      color: var(--accent);
+      color: var(--primary);
     }
 
-    /* Skills Grid */
-    .skills-grid {
+    /* Skills */
+    .skills {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
     }
-    .skill-card {
-      background: var(--card-bg);
+    .skill {
+      background: var(--card);
       padding: 15px;
       border-radius: 12px;
+      text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .skill-card:hover {
-      transform: translateY(-5px);
     }
 
     /* Projects */
@@ -140,18 +127,18 @@
       gap: 20px;
     }
     .project {
-      background: var(--card-bg);
+      background: var(--card);
       padding: 20px;
       border-radius: 12px;
-      border-left: 4px solid var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
     .project:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px);
     }
     .project h3 {
       margin-top: 0;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     /* Lists */
@@ -161,21 +148,18 @@
 
     /* Footer */
     footer {
+      background: var(--card);
       text-align: center;
-      background: var(--card-bg);
       padding: 20px;
-      border-top: 2px solid var(--accent);
-      font-size: 14px;
+      border-top: 2px solid var(--primary);
+      margin-top: 40px;
     }
 
-    /* Theme Toggle */
-    .toggle-btn {
-      cursor: pointer;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 5px 12px;
+    /* Responsive */
+    @media(max-width: 768px) {
+      .hero h1 { font-size: 2.2em; }
+      nav { flex-direction: column; }
+      nav a { display: inline-block; margin: 8px; }
     }
   </style>
 </head>
@@ -191,18 +175,19 @@
       <a href="#achievements">Achievements</a>
       <a href="#extracurriculars">Extracurriculars</a>
     </div>
-    <button class="toggle-btn" onclick="toggleTheme()">🌙</button>
   </nav>
 
   <!-- Hero -->
   <div class="hero">
-    <h1>Hi, I'm Abdulla 👋</h1>
-    <p>Engineering Student | Developer | Tech Enthusiast</p>
-    <p>📞 +91 7795588802 | <a href="mailto:abdulla.1si22et001@gmail.com" style="color:white;">abdulla.1si22et001@gmail.com</a></p>
-    <div class="buttons">
-      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
-      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
-      <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
+    <div>
+      <h1>Hi, I'm Abdulla 👋</h1>
+      <p>Engineering Student | Developer | Tech Enthusiast</p>
+      <p>📞 +91 7795588802 | <a href="mailto:abdulla.1si22et001@gmail.com" style="color:white;">Email Me</a></p>
+      <div class="socials">
+        <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
+        <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
+        <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
+      </div>
     </div>
   </div>
 
@@ -212,7 +197,7 @@
     <div class="timeline">
       <div>
         <h3>Siddaganga Institute of Technology</h3>
-        <p>B.E. in Electronics & Telecommunication (2022–2026) | CGPA: 8.4</p>
+        <p>B.E. Electronics & Telecommunication (2022–2026) | CGPA: 8.4</p>
       </div>
       <div>
         <h3>Pre-University Course (PUC)</h3>
@@ -224,13 +209,13 @@
   <!-- Skills -->
   <section id="skills">
     <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card"><b>Languages:</b> C++</div>
-      <div class="skill-card"><b>Web Development:</b> HTML, CSS</div>
-      <div class="skill-card"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
-      <div class="skill-card"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
-      <div class="skill-card"><b>Developer Tools:</b> Git/GitHub, VS Code, TinkerCad, AWR, XAMPP</div>
-      <div class="skill-card"><b>Others:</b> Event Planning, Communication, Team Management</div>
+    <div class="skills">
+      <div class="skill"><b>Languages:</b> C++</div>
+      <div class="skill"><b>Web:</b> HTML, CSS</div>
+      <div class="skill"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
+      <div class="skill"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
+      <div class="skill"><b>Tools:</b> Git, VS Code, TinkerCad, AWR, XAMPP</div>
+      <div class="skill"><b>Others:</b> Team Management, Communication</div>
     </div>
   </section>
 
@@ -241,22 +226,22 @@
       <div class="project">
         <h3>AIGI – Ask It, Get It</h3>
         <p><b>Tech:</b> CodeIgniter 3, HTML, CSS, SQL</p>
-        <p>Centralized digital platform to streamline academic resources & placements.</p>
+        <p>Centralized portal for academic resources & placement support.</p>
       </div>
       <div class="project">
         <h3>Design & Analysis of Bandpass Filter</h3>
-        <p><b>Tech:</b> Microstrip Technology, RF</p>
-        <p>Optimized bandpass filter design with high selectivity & minimal loss.</p>
+        <p><b>Tech:</b> Microstrip, RF</p>
+        <p>Optimized filter for improved transmission & selectivity.</p>
       </div>
       <div class="project">
         <h3>Automated Irrigation System</h3>
         <p><b>Tech:</b> Arduino, RF</p>
-        <p>Smart irrigation using sensors & wireless communication.</p>
+        <p>Smart irrigation with soil & temperature sensors.</p>
       </div>
       <div class="project">
         <h3>Automated Grass Cutter (IoT)</h3>
         <p><b>Tech:</b> Arduino, Sensors</p>
-        <p>IoT-enabled autonomous grass cutter with remote monitoring.</p>
+        <p>IoT-enabled grass cutter with remote control.</p>
       </div>
     </div>
   </section>
@@ -271,11 +256,11 @@
 
   <!-- Extracurriculars -->
   <section id="extracurriculars">
-    <h2>Extracurriculars & Leadership</h2>
+    <h2>Extracurriculars</h2>
     <ul>
       <li>Event Management Lead – IIC, SIT</li>
       <li>Volunteer – Freshers recruitment (2025)</li>
-      <li>Led volunteers in college festivals & departmental events</li>
+      <li>Led volunteers in college fests & departmental events</li>
     </ul>
   </section>
 
@@ -284,11 +269,5 @@
     © 2025 Abdulla Syed | Built with ❤️
   </footer>
 
-  <script>
-    function toggleTheme() {
-      document.body.dataset.theme =
-        document.body.dataset.theme === "dark" ? "light" : "dark";
-    }
-  </script>
 </body>
 </html>
