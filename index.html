@@ -18,6 +18,7 @@
       background: var(--bg);
       color: var(--text);
       scroll-behavior: smooth;
+      transition: background 0.5s, color 0.5s;
     }
 
     /* Navbar */
@@ -49,15 +50,23 @@
       color: var(--primary);
     }
 
-    /* Hero */
+    /* Hero with animated gradient */
     .hero {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: linear-gradient(135deg, #0a0f1a, #0f1f33);
+      background: linear-gradient(270deg, #0a0f1a, #0f1f33, #141c2c);
+      background-size: 600% 600%;
+      animation: gradientMove 15s ease infinite;
       padding: 20px;
+      flex-direction: column;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
     .hero h1 {
       font-size: 3em;
@@ -81,6 +90,18 @@
     @keyframes blink {
       50% { background: transparent; }
     }
+    .clock {
+      margin-top: 20px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+    }
+    .quote-box {
+      margin-top: 15px;
+      font-style: italic;
+      font-size: 1em;
+      color: #ccc;
+    }
     .socials {
       margin-top: 20px;
     }
@@ -95,7 +116,7 @@
       color: #ffffff;
     }
 
-    /* Section */
+    /* Sections */
     section {
       padding: 80px 10% 40px;
       opacity: 0;
@@ -135,16 +156,6 @@
       color: var(--primary);
     }
 
-    /* Timeline */
-    .timeline {
-      border-left: 3px solid var(--primary);
-      padding-left: 20px;
-    }
-    .timeline h3 {
-      margin: 0;
-      color: var(--primary);
-    }
-
     /* Footer */
     footer {
       background: var(--card);
@@ -174,6 +185,19 @@
     #topBtn:hover {
       background: var(--secondary);
     }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -192,30 +216,22 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div>
-      <h1>Hi, I'm Abdulla 👋</h1>
-      <p><span class="typed-text"></span><span class="cursor"></span></p>
-      <div class="socials">
-        <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
-        <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
-        <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
-      </div>
+    <h1>Hi, I'm Abdulla 👋</h1>
+    <p><span class="typed-text"></span><span class="cursor"></span></p>
+    <div class="clock" id="clock"></div>
+    <div class="quote-box" id="quote"></div>
+    <div class="socials">
+      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
+      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
+      <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
     </div>
   </div>
 
   <!-- Education -->
   <section id="education">
     <h2>Education</h2>
-    <div class="timeline">
-      <div>
-        <h3>Siddaganga Institute of Technology</h3>
-        <p>B.E. Electronics & Telecommunication (2022–2026) | CGPA: 8.4</p>
-      </div>
-      <div>
-        <h3>Pre-University Course (PUC)</h3>
-        <p>PCMB (2022) | 91%</p>
-      </div>
-    </div>
+    <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
+    <p>Pre-University (PCMB, 2022) | 91%</p>
   </section>
 
   <!-- Skills -->
@@ -235,26 +251,10 @@
   <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
-      <div class="project">
-        <h3>AIGI – Ask It, Get It</h3>
-        <p><b>Tech:</b> CodeIgniter 3, HTML, CSS, SQL</p>
-        <p>Centralized portal for academic resources & placement support.</p>
-      </div>
-      <div class="project">
-        <h3>Design & Analysis of Bandpass Filter</h3>
-        <p><b>Tech:</b> Microstrip, RF</p>
-        <p>Optimized filter for improved transmission & selectivity.</p>
-      </div>
-      <div class="project">
-        <h3>Automated Irrigation System</h3>
-        <p><b>Tech:</b> Arduino, RF</p>
-        <p>Smart irrigation with soil & temperature sensors.</p>
-      </div>
-      <div class="project">
-        <h3>Automated Grass Cutter (IoT)</h3>
-        <p><b>Tech:</b> Arduino, Sensors</p>
-        <p>IoT-enabled grass cutter with remote control.</p>
-      </div>
+      <div class="project"><h3>AIGI – Ask It, Get It</h3><p>Centralized portal for academic resources & placements.</p></div>
+      <div class="project"><h3>Bandpass Filter Design</h3><p>Optimized RF filter for high selectivity.</p></div>
+      <div class="project"><h3>Automated Irrigation System</h3><p>IoT-enabled smart irrigation with sensors.</p></div>
+      <div class="project"><h3>Automated Grass Cutter (IoT)</h3><p>Self-operating IoT-based grass cutter.</p></div>
     </div>
   </section>
 
@@ -283,23 +283,20 @@
 
   <!-- Scroll to Top Button -->
   <button id="topBtn" onclick="scrollToTop()">↑</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙/☀️</button>
 
   <script>
     // Typing Effect
     const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
-    let textIndex = 0;
-    let charIndex = 0;
+    let textIndex = 0, charIndex = 0;
     const typedTextSpan = document.querySelector(".typed-text");
-    const cursorSpan = document.querySelector(".cursor");
 
     function type() {
       if (charIndex < textArray[textIndex].length) {
         typedTextSpan.textContent += textArray[textIndex].charAt(charIndex);
         charIndex++;
         setTimeout(type, 100);
-      } else {
-        setTimeout(erase, 2000);
-      }
+      } else { setTimeout(erase, 2000); }
     }
     function erase() {
       if (charIndex > 0) {
@@ -307,41 +304,63 @@
         charIndex--;
         setTimeout(erase, 50);
       } else {
-        textIndex++;
-        if (textIndex >= textArray.length) textIndex = 0;
+        textIndex = (textIndex + 1) % textArray.length;
         setTimeout(type, 500);
       }
     }
-    document.addEventListener("DOMContentLoaded", () => {
-      if (textArray.length) setTimeout(type, 500);
-    });
+    document.addEventListener("DOMContentLoaded", () => { type(); });
 
-    // Section fade-in on scroll
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Random Quotes
+    const quotes = [
+      "Code is like humor. When you have to explain it, it’s bad.",
+      "Talk is cheap. Show me the code.",
+      "First, solve the problem. Then, write the code.",
+      "Knowledge is power, but enthusiasm pulls the switch.",
+      "Stay hungry, stay foolish."
+    ];
+    document.getElementById("quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+    // Scroll reveal
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
     }, { threshold: 0.1 });
     sections.forEach(sec => observer.observe(sec));
 
-    // Scroll to top button
+    // Scroll to top
     const topBtn = document.getElementById("topBtn");
     window.onscroll = function() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topBtn.style.display = "block";
-      } else {
-        topBtn.style.display = "none";
-      }
+      topBtn.style.display = (document.documentElement.scrollTop > 200) ? "block" : "none";
     };
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Theme toggle
+    function toggleTheme() {
+      if (document.body.style.background === "white") {
+        document.body.style.background = "var(--bg)";
+        document.body.style.color = "var(--text)";
+      } else {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+      }
     }
 
-    // Dynamic year in footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Fun easter egg
+    console.log("%cHey 👋 curious dev!", "color: cyan; font-size:18px; font-weight:bold;");
+    console.log("You found my secret console message! 🚀 Keep coding...");
   </script>
 </body>
 </html>
