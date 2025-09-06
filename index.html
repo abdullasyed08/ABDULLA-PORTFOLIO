@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary: #58a6ff;   /* Calm blue */
-      --bg: #0d1117;        /* Dark background */
-      --text: #e6edf3;      /* Soft white text */
-      --card: #161b22;      /* Card background */
+      --primary: #58a6ff;
+      --bg: #0d1117;
+      --text: #e6edf3;
+      --card: #161b22;
       --light-bg: #ffffff;
       --light-text: #000000;
       --light-card: #f2f2f2;
@@ -23,12 +23,20 @@
       transition: background 0.4s, color 0.4s;
     }
 
+    /* Particle Background Canvas */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--bg);
+    }
+
     /* Navbar */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       background: var(--card);
       display: flex;
       justify-content: space-between;
@@ -48,9 +56,7 @@
       color: var(--text);
       font-weight: 500;
     }
-    nav .links a:hover {
-      color: var(--primary);
-    }
+    nav .links a:hover { color: var(--primary); }
     nav .theme-toggle {
       background: var(--primary);
       border: none;
@@ -68,46 +74,20 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: linear-gradient(135deg, #0d1117, #161b22);
-      padding: 20px;
       flex-direction: column;
+      padding: 20px;
     }
-    .hero h1 {
-      font-size: 3em;
-      margin: 0;
-      color: var(--primary);
-    }
-    .hero p {
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
-    .typed-text {
-      color: var(--primary);
-      font-weight: bold;
-    }
-    .clock {
-      margin-top: 20px;
-      font-size: 1.4em;
-      font-weight: bold;
-    }
-    .quote-box {
-      margin-top: 15px;
-      font-style: italic;
-      font-size: 1em;
-      color: #aaa;
-    }
-    .socials {
-      margin-top: 20px;
-    }
+    .hero h1 { font-size: 3em; margin: 0; color: var(--primary); }
+    .hero p { font-size: 1.2em; margin-top: 10px; }
+    .typed-text { color: var(--primary); font-weight: bold; }
+    .clock { margin-top: 20px; font-size: 1.4em; font-weight: bold; }
+    .quote-box { margin-top: 15px; font-style: italic; font-size: 1em; color: #aaa; }
+    .socials { margin-top: 20px; }
     .socials a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: bold;
+      margin: 0 10px; text-decoration: none;
+      color: var(--primary); font-weight: bold;
     }
-    .socials a:hover {
-      color: #fff;
-    }
+    .socials a:hover { color: #fff; }
 
     /* Sections */
     section {
@@ -116,15 +96,9 @@
       transform: translateY(40px);
       transition: all 0.8s ease;
     }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    section.visible { opacity: 1; transform: translateY(0); }
     section h2 {
-      text-align: center;
-      font-size: 2em;
-      margin-bottom: 40px;
-      color: var(--primary);
+      text-align: center; font-size: 2em; margin-bottom: 40px; color: var(--primary);
     }
 
     /* Cards */
@@ -144,10 +118,7 @@
       transform: translateY(-6px) scale(1.02);
       box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
-    .project h3 {
-      margin-top: 0;
-      color: var(--primary);
-    }
+    .project h3 { margin-top: 0; color: var(--primary); }
 
     /* Footer */
     footer {
@@ -163,8 +134,7 @@
     #topBtn {
       display: none;
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 30px; right: 30px;
       background: var(--primary);
       border: none;
       color: #000;
@@ -175,29 +145,29 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.6);
       transition: 0.3s;
     }
-    #topBtn:hover {
-      background: #3392ff;
-    }
+    #topBtn:hover { background: #3392ff; }
 
     /* Light Theme */
-    body.light {
-      background: var(--light-bg);
-      color: var(--light-text);
-    }
-    body.light nav {
-      background: var(--light-card);
-    }
-    body.light .skill, body.light .project {
-      background: var(--light-card);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    body.light footer {
-      background: var(--light-card);
-      color: #555;
+    body.light { background: var(--light-bg); color: var(--light-text); }
+    body.light nav { background: var(--light-card); }
+    body.light .skill, body.light .project { background: var(--light-card); }
+    body.light footer { background: var(--light-card); color: #555; }
+
+    /* Snake Game Overlay */
+    #snakeCanvas {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 200;
     }
   </style>
 </head>
 <body>
+
+  <!-- Particle Background -->
+  <canvas id="particles"></canvas>
 
   <!-- Navbar -->
   <nav>
@@ -225,7 +195,7 @@
     </div>
   </div>
 
-  <!-- Sections (Education, Skills, Projects, Achievements, Extracurriculars) -->
+  <!-- Sections -->
   <section id="education">
     <h2>Education</h2>
     <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
@@ -256,9 +226,7 @@
 
   <section id="achievements">
     <h2>Achievements</h2>
-    <ul>
-      <li>Top 10 finalist – National Hackathon (IIC), 2024</li>
-    </ul>
+    <ul><li>Top 10 finalist – National Hackathon (IIC), 2024</li></ul>
   </section>
 
   <section id="extracurriculars">
@@ -271,12 +239,13 @@
   </section>
 
   <!-- Footer -->
-  <footer>
-    © <span id="year"></span> Abdulla Syed | Built with ❤️
-  </footer>
+  <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
 
   <!-- Scroll to Top Button -->
   <button id="topBtn" onclick="scrollToTop()">↑</button>
+
+  <!-- Snake Game Canvas -->
+  <canvas id="snakeCanvas"></canvas>
 
   <script>
     // Typing Effect
@@ -285,32 +254,25 @@
     const typedTextSpan = document.querySelector(".typed-text");
     function type() {
       if (charIndex < textArray[textIndex].length) {
-        typedTextSpan.textContent += textArray[textIndex].charAt(charIndex);
-        charIndex++;
+        typedTextSpan.textContent += textArray[textIndex].charAt(charIndex++);
         setTimeout(type, 100);
-      } else { setTimeout(erase, 2000); }
+      } else setTimeout(erase, 2000);
     }
     function erase() {
       if (charIndex > 0) {
-        typedTextSpan.textContent = textArray[textIndex].substring(0, charIndex - 1);
-        charIndex--;
+        typedTextSpan.textContent = textArray[textIndex].substring(0, --charIndex);
         setTimeout(erase, 50);
-      } else {
-        textIndex = (textIndex + 1) % textArray.length;
-        setTimeout(type, 500);
-      }
+      } else { textIndex = (textIndex + 1) % textArray.length; setTimeout(type, 500); }
     }
-    document.addEventListener("DOMContentLoaded", () => { type(); });
+    document.addEventListener("DOMContentLoaded", type);
 
-    // Live Clock
+    // Clock
     function updateClock() {
-      const now = new Date();
-      document.getElementById("clock").textContent = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = new Date().toLocaleTimeString();
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+    setInterval(updateClock, 1000); updateClock();
 
-    // Quotes
+    // Random Quote
     const quotes = [
       "Code is like humor. When you have to explain it, it’s bad.",
       "Talk is cheap. Show me the code.",
@@ -318,31 +280,56 @@
       "Knowledge is power, but enthusiasm pulls the switch.",
       "Stay hungry, stay foolish."
     ];
-    document.getElementById("quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
 
-    // Section fade-in
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
-    }, { threshold: 0.1 });
-    sections.forEach(sec => observer.observe(sec));
+    // Fade in sections
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("visible"); });
+    },{threshold:0.1});
+    document.querySelectorAll("section").forEach(sec=>observer.observe(sec));
 
-    // Scroll to top
-    const topBtn = document.getElementById("topBtn");
-    window.onscroll = function() {
-      topBtn.style.display = (document.documentElement.scrollTop > 200) ? "block" : "none";
-    };
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
+    // Scroll top
+    const topBtn=document.getElementById("topBtn");
+    window.onscroll=()=>{topBtn.style.display=(document.documentElement.scrollTop>200)?"block":"none";}
+    function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
 
-    // Footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // Footer Year
+    document.getElementById("year").textContent=new Date().getFullYear();
 
-    // Theme toggle
-    function toggleTheme() {
+    // Theme Toggle
+    function toggleTheme(){
       document.body.classList.toggle("light");
-      document.querySelector(".theme-toggle").textContent =
-        document.body.classList.contains("light") ? "☀️" : "🌙";
+      document.querySelector(".theme-toggle").textContent=document.body.classList.contains("light")?"☀️":"🌙";
     }
+
+    // Particle Background
+    const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    const particles=[]; for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
+    function drawParticles(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#58a6ff";particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(drawParticles);}
+    drawParticles();
+    window.onresize=()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+
+    // Snake Game Easter Egg
+    console.log("%cEaster Egg!","color:cyan;font-size:16px");
+    console.log("Type snake() in console to play 🐍");
+    function snake(){
+      const sc=document.getElementById("snakeCanvas");const ctx=sc.getContext("2d");
+      sc.style.display="block";sc.width=window.innerWidth;sc.height=window.innerHeight;
+      let box=20;let snake=[{x:9*box,y:10*box}];let food={x:Math.floor(Math.random()*20)*box,y:Math.floor(Math.random()*20)*box};let d;document.addEventListener("keydown",dir);
+      function dir(e){if(e.keyCode==37&&d!="RIGHT")d="LEFT";else if(e.keyCode==38&&d!="DOWN")d="UP";else if(e.keyCode==39&&d!="LEFT")d="RIGHT";else if(e.keyCode==40&&d!="UP")d="DOWN";}
+      function draw(){ctx.fillStyle="black";ctx.fillRect(0,0,sc.width,sc.height);
+        for(let i=0;i<snake.length;i++){ctx.fillStyle=i==0?"lime":"white";ctx.fillRect(snake[i].x,snake[i].y,box,box);}
+        ctx.fillStyle="red";ctx.fillRect(food.x,food.y,box,box);
+        let snakeX=snake[0].x;let snakeY=snake[0].y;
+        if(d=="LEFT")snakeX-=box;if(d=="UP")snakeY-=box;if(d=="RIGHT")snakeX+=box;if(d=="DOWN")snakeY+=box;
+        if(snakeX==food.x&&snakeY==food.y){food={x:Math.floor(Math.random()*20)*box,y:Math.floor(Math.random()*20)*box};}
+        else{snake.pop();}
+        let newHead={x:snakeX,y:snakeY};
+        if(snakeX<0||snakeY<0||snakeX>=sc.width||snakeY>=sc.height||collision(newHead,snake)){alert("Game Over! Press F12 and type snake() again to replay.");sc.style.display="none";clearInterval(game);return;}
+        snake.unshift(newHead);}
+      function collision(head,array){for(let i=0;i<array.length;i++){if(head.x==array[i].x&&head.y==array[i].y){return true;}}return false;}
+      let game=setInterval(draw,100);}
   </script>
 </body>
 </html>
