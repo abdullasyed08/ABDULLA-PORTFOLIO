@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Abdulla Syed | Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     /* === Theme Variables === */
-    :root {
+    :root{
       --primary: #58a6ff;
       --bg: #0d1117;
       --text: #e6edf3;
       --card: #161b22;
       --particle: #58a6ff;
     }
-    body.light {
+    body.light{
       --primary: #0077cc;
       --bg: #ffffff;
       --text: #000000;
@@ -21,179 +21,84 @@
       --particle: #333333;
     }
 
-    /* === Global Styles === */
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      scroll-behavior: smooth;
-      transition: background 0.4s, color 0.4s;
+    /* === Global === */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text);
+      scroll-behavior:smooth;
+      transition:background .35s,color .35s;
     }
-    a { color: var(--primary); text-decoration: none; }
-    .btn {
-      display: inline-block;
-      padding: 8px 16px;
-      margin-top: 10px;
-      background: var(--primary);
-      color: white;
-      border-radius: 6px;
-      font-weight: bold;
-    }
+    a{color:var(--primary);text-decoration:none}
+    .btn{display:inline-block;padding:8px 16px;margin-top:10px;background:var(--primary);color:#fff;border-radius:8px;font-weight:600}
 
-    /* Particle Background */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      background: var(--bg);
-    }
+    /* Particle canvas behind everything */
+    #particles{position:fixed;inset:0;width:100%;height:100%;z-index:-1;background:var(--bg)}
 
     /* Navbar */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: var(--card);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 8%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      z-index: 100;
+    nav{
+      position:fixed;top:0;left:0;right:0;
+      background:var(--card);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 6%;
+      z-index:120;
+      box-shadow:0 4px 18px rgba(0,0,0,.35);
+      gap:12px;
     }
-    nav .logo {
-      font-weight: bold;
-      color: var(--primary);
-      font-size: 20px;
-    }
-    nav .links a {
-      margin: 0 12px;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-    }
-    nav .links a:hover { color: var(--primary); }
-    nav .theme-toggle {
-      background: var(--primary);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      color: #fff;
-      font-weight: bold;
+    .logo{font-weight:700;color:var(--primary);font-size:1.1rem}
+    .links{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .links a{margin:0 8px;color:var(--text);font-weight:600}
+    .links a:hover{color:var(--primary)}
+    .theme-toggle{
+      background:var(--primary);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700
     }
 
     /* Hero */
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
-      padding: 20px;
-    }
-    .hero h1 { font-size: 3em; margin: 0; color: var(--primary); }
-    .hero p { font-size: 1.2em; margin-top: 10px; }
-    .typed-text { color: var(--primary); font-weight: bold; }
-    .clock { margin-top: 20px; font-size: 1.4em; font-weight: bold; }
-    .quote-box { margin-top: 15px; font-style: italic; font-size: 1em; color: #aaa; }
-    .socials { margin-top: 20px; }
-    .socials a { margin: 0 10px; font-weight: bold; }
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:16vh 6% 6vh;flex-direction:column}
+    .hero h1{margin:0;font-size:2.6rem;color:var(--primary)}
+    .hero p{margin:0;font-size:1.05rem}
+    .typed-text{color:var(--primary);font-weight:700}
+    .clock{margin-top:6px;font-size:1.05rem;font-weight:700;color:var(--text)}
+    .quote-box{margin-top:10px;font-style:italic;color:rgba(255,255,255,.75)}
 
     /* Sections */
-    section {
-      padding: 80px 10% 40px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-    section.visible { opacity: 1; transform: translateY(0); }
-    section h2 {
-      text-align: center; font-size: 2em; margin-bottom: 40px; color: var(--primary);
-    }
-    .card {
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      margin: 20px auto;
-      max-width: 800px;
-    }
+    section{padding:80px 6% 48px;opacity:0;transform:translateY(36px);transition:all .7s ease}
+    section.visible{opacity:1;transform:translateY(0)}
+    section h2{text-align:center;font-size:1.6rem;margin-bottom:22px;color:var(--primary)}
+    .card{background:var(--card);padding:18px;border-radius:12px;max-width:1000px;margin:16px auto;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+    ul{line-height:1.7}
 
-    /* Skills & Projects Grid */
-    .skills, .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .skill, .project {
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .skill:hover, .project:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
-    .project h3 { margin-top: 0; color: var(--primary); }
-
-    /* Footer */
-    footer {
-      background: var(--card);
-      text-align: center;
-      padding: 20px;
-      border-top: 2px solid var(--primary);
-      margin-top: 40px;
-      color: #888;
-    }
-
-    /* Scroll to top button */
-    #topBtn {
-      display: none;
-      position: fixed;
-      bottom: 30px; right: 30px;
-      background: var(--primary);
-      border: none;
-      color: #000;
-      font-size: 20px;
-      border-radius: 50%;
-      padding: 10px 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-      transition: 0.3s;
-    }
+    /* Grids */
+    .skills,.projects{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .skill,.project{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .18s}
+    .skill:hover,.project:hover{transform:translateY(-6px)}
+    .project h3{margin:0 0 8px;color:var(--primary)}
 
     /* Tic Tac Toe */
-    #ticTacToe { text-align: center; margin-top: 20px; }
-    .board {
-      display: grid; grid-template-columns: repeat(3, 100px);
-      gap: 5px; justify-content: center; margin: 20px auto;
-    }
-    .cell {
-      width: 100px; height: 100px;
-      background: var(--card);
-      border: 2px solid var(--primary);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2em; font-weight: bold; cursor: pointer;
-    }
-    .cell:hover { background: rgba(88,166,255,0.2); }
-    #status { margin: 10px 0; font-size: 1.2em; font-weight: bold; color: var(--primary); }
-    #ticTacToe button {
-      padding: 8px 15px; border: none; border-radius: 6px;
-      background: var(--primary); color: white; font-weight: bold; cursor: pointer;
+    #ticTacToe{text-align:center}
+    .board{display:grid;grid-template-columns:repeat(3,100px);gap:8px;justify-content:center;margin:18px auto}
+    .cell{width:100px;height:100px;background:var(--card);border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;border-radius:8px;user-select:none}
+    .cell:hover{background:rgba(88,166,255,0.06)}
+    #status{margin:10px 0;color:var(--primary);font-weight:700}
+    #ticTacToe button{padding:8px 14px;border:0;background:var(--primary);color:#fff;border-radius:8px;cursor:pointer;font-weight:700}
+
+    /* Footer & top button */
+    footer{background:var(--card);padding:18px;text-align:center;border-top:2px solid var(--primary);color:rgba(255,255,255,.7)}
+    #topBtn{display:none;position:fixed;right:24px;bottom:24px;background:var(--primary);color:#000;border:0;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+
+    @media(max-width:720px){
+      .hero h1{font-size:2rem}
+      .board{grid-template-columns:repeat(3,74px)}
+      .cell{width:74px;height:74px;font-size:1.6rem}
     }
   </style>
 </head>
 <body>
-
-  <!-- Particle Background -->
   <canvas id="particles"></canvas>
 
-  <!-- Navbar -->
+  <!-- NAV -->
   <nav>
     <div class="logo">Abdulla Syed</div>
     <div class="links">
@@ -207,96 +112,97 @@
       <a href="#game">Fun Zone 🎮</a>
       <a href="#contact">Contact</a>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
   </nav>
 
-  <!-- Hero -->
-  <div class="hero">
+  <!-- HERO -->
+  <section class="hero" id="home">
     <h1>Hi, I'm Abdulla 👋</h1>
     <p><span class="typed-text"></span></p>
     <div class="clock" id="clock"></div>
     <div class="quote-box" id="quote"></div>
     <div class="socials">
-      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
-      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
+      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a> ·
+      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a> ·
       <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
     </div>
-  </div>
+  </section>
 
-  <!-- About -->
+  <!-- ABOUT -->
   <section id="about">
     <h2>About Me</h2>
     <div class="card">
-      <p>Hi! I’m <b>Abdulla Syed</b>, an Electronics & Telecommunication Engineering student at 
-      <b>Siddaganga Institute of Technology</b>. I love solving real-world problems with 
-      <b>software and telecom systems</b>.</p>
-      <p>I’m building <b>AIGI – Ask It, Get It</b>, a portal for engineering students, and exploring 
-      <b>5G cloud-native networks, IoT projects, and software development</b>.  
-      My goal: to become a <b>Wireless Core Engineer</b> shaping the future of communication.</p>
-      <a href="ABDULLA_RESUME.pdf" download class="btn">📄 Download Resume</a>
+      <p><b>Electronics & Telecommunication student</b> at <b>SIT (2022–2026)</b>. Passionate about <b>5G networks, IoT, RF design, and web dev</b>. Currently building <b>AIGI – Ask It, Get It</b>, and co-authored an IEEE paper on RF filters.</p>
     </div>
   </section>
 
-  <!-- Education -->
+  <!-- EDUCATION -->
   <section id="education">
     <h2>Education</h2>
-    <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
-    <p>Pre-University (PCMB, 2022) | 91%</p>
+    <div class="card">
+      <p>Siddaganga Institute of Technology — B.E. (2022–2026) • CGPA: 8.4</p>
+      <p>PUC (PCMB, 2022) • 91%</p>
+    </div>
   </section>
 
-  <!-- Skills -->
+  <!-- SKILLS -->
   <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
-      <div class="skill"><b>Languages:</b> C++</div>
-      <div class="skill"><b>Web:</b> HTML, CSS</div>
-      <div class="skill"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
-      <div class="skill"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
-      <div class="skill"><b>Tools:</b> Git, VS Code, TinkerCad, AWR, XAMPP</div>
-      <div class="skill"><b>Others:</b> Event Planning, Communication, Team Management</div>
+      <div class="skill"><b>Languages</b><div>C++</div></div>
+      <div class="skill"><b>Web</b><div>HTML, CSS</div></div>
+      <div class="skill"><b>Framework</b><div>CodeIgniter 3</div></div>
+      <div class="skill"><b>CS Fundamentals</b><div>DSA, OOP, OS, DCN</div></div>
+      <div class="skill"><b>Tools</b><div>Git, VS Code, TinkerCad, AWR</div></div>
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- PROJECTS -->
   <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
-      <div class="project"><h3>AIGI – Ask It, Get It</h3><p>Centralized portal for academic resources & placements.</p></div>
-      <div class="project"><h3>Bandpass Filter Design</h3><p>RF filter for high selectivity, IEEE paper.</p></div>
-      <div class="project"><h3>Automated Irrigation System</h3><p>IoT-enabled smart irrigation with sensors.</p></div>
-      <div class="project"><h3>Automated Grass Cutter (IoT)</h3><p>Self-operating IoT-based grass cutter.</p></div>
+      <div class="project"><h3>AIGI – Ask It, Get It</h3><p>Portal for academic resources & placements.</p></div>
+      <div class="project"><h3>Bandpass Filter Design</h3><p>RF filter, IEEE paper on coupled-line design.</p></div>
+      <div class="project"><h3>Automated Irrigation System</h3><p>Arduino + sensors + RF modules.</p></div>
+      <div class="project"><h3>IoT Grass Cutter</h3><p>Self-operating smart cutter.</p></div>
     </div>
   </section>
 
-  <!-- Experience -->
+  <!-- EXPERIENCE -->
   <section id="experience">
     <h2>Academic Experience</h2>
     <div class="card">
-      <h3>📑 Research Paper</h3>
-      <p>Co-authored <b>“Design and Analysis of Bandpass Filter with Improved Out-of-Band Characteristics Using Coupled Lines”</b>, presented at IEEE ICSSES 2025.</p>
+      <p>Co-authored IEEE paper: “Design and Analysis of Bandpass Filter with Improved Out-of-Band Characteristics Using Coupled Lines”, presented at ICSSES 2025.</p>
     </div>
   </section>
 
-  <!-- Achievements -->
+  <!-- ACHIEVEMENTS -->
   <section id="achievements">
     <h2>Achievements</h2>
-    <ul><li>Top 10 finalist – National Hackathon (IIC), 2024</li></ul>
+    <div class="card">
+      <ul>
+        <li>Top 10 finalist — National Hackathon 2024</li>
+        <li>1st Place — Technisium 2025</li>
+      </ul>
+    </div>
   </section>
 
-  <!-- Extracurriculars -->
+  <!-- EXTRACURRICULARS -->
   <section id="extracurriculars">
     <h2>Extracurriculars</h2>
-    <ul>
-      <li>Event Management Lead – IIC, SIT</li>
-      <li>Volunteer – Freshers recruitment (2025)</li>
-      <li>Led volunteers in college fests & departmental events</li>
-    </ul>
+    <div class="card">
+      <ul>
+        <li>Lead — IIC, SIT</li>
+        <li>Volunteer — Hackathons & events</li>
+        <li>Anchor — Tech workshops</li>
+      </ul>
+    </div>
   </section>
 
-  <!-- Fun Zone -->
+  <!-- FUN ZONE -->
   <section id="game">
-    <h2>🎮 Play Tic Tac Toe</h2>
-    <div id="ticTacToe">
+    <h2>🎮 Tic Tac Toe</h2>
+    <div id="ticTacToe" class="card">
       <div class="board">
         <div class="cell" data-index="0"></div>
         <div class="cell" data-index="1"></div>
@@ -309,91 +215,72 @@
         <div class="cell" data-index="8"></div>
       </div>
       <p id="status">Player X's turn</p>
-      <button onclick="resetGame()">🔄 Restart</button>
+      <button id="resetBtn">🔄 Restart</button>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- CONTACT -->
   <section id="contact">
-    <h2>Contact Me</h2>
+    <h2>Contact</h2>
     <div class="card">
       <p>Email: <a href="mailto:abdulla.1si22et001@gmail.com">abdulla.1si22et001@gmail.com</a></p>
       <p>Phone: +91 7795588802</p>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
-  <button id="topBtn" onclick="scrollToTop()">↑</button>
+  <button id="topBtn">↑</button>
 
-  <script>
-    // Typing Effect
-    const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
-    let textIndex = 0, charIndex = 0;
-    const typedTextSpan = document.querySelector(".typed-text");
-    function type() {
-      if (charIndex < textArray[textIndex].length) {
-        typedTextSpan.textContent += textArray[textIndex].charAt(charIndex++);
-        setTimeout(type, 100);
-      } else setTimeout(erase, 2000);
-    }
-    function erase() {
-      if (charIndex > 0) {
-        typedTextSpan.textContent = textArray[textIndex].substring(0, --charIndex);
-        setTimeout(erase, 50);
-      } else { textIndex = (textIndex + 1) % textArray.length; setTimeout(type, 500); }
-    }
-    document.addEventListener("DOMContentLoaded", type);
+<script>
+(function(){
+  // Typing effect
+  const textArray=["Engineering Student","Developer","Tech Enthusiast"];
+  let t=0,c=0;const typed=document.querySelector(".typed-text");
+  function type(){if(c<textArray[t].length){typed.textContent+=textArray[t][c++];setTimeout(type,90);}else setTimeout(erase,1600);}
+  function erase(){if(c>0){typed.textContent=textArray[t].substring(0,--c);setTimeout(erase,40);}else{t=(t+1)%textArray.length;setTimeout(type,500);}}
+  type();
 
-    // Clock
-    function updateClock() {
-      document.getElementById("clock").textContent = new Date().toLocaleTimeString();
-    }
-    setInterval(updateClock, 1000); updateClock();
+  // Clock
+  function clock(){document.getElementById("clock").textContent=new Date().toLocaleTimeString();}
+  setInterval(clock,1000);clock();
 
-    // Random Quote
-    const quotes = [
-      "Code is like humor. When you have to explain it, it’s bad.",
-      "Talk is cheap. Show me the code.",
-      "First, solve the problem. Then, write the code.",
-      "Knowledge is power, but enthusiasm pulls the switch.",
-      "Stay hungry, stay foolish."
-    ];
-    document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
+  // Quote
+  const quotes=["Code is like humor.","Talk is cheap. Show me the code.","First, solve the problem.","Knowledge is power.","Stay hungry, stay foolish."];
+  document.getElementById("quote").textContent=quotes[Math.floor(Math.random()*quotes.length)];
 
-    // Fade in sections
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("visible"); });
-    },{threshold:0.1});
-    document.querySelectorAll("section").forEach(sec=>observer.observe(sec));
+  // Section fade
+  const observer=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("visible");}),{threshold:0.1});
+  document.querySelectorAll("section").forEach(s=>observer.observe(s));
 
-    // Scroll top
-    const topBtn=document.getElementById("topBtn");
-    window.onscroll=()=>{topBtn.style.display=(document.documentElement.scrollTop>200)?"block":"none";}
-    function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
+  // Top button
+  const topBtn=document.getElementById("topBtn");
+  window.onscroll=()=>{topBtn.style.display=document.documentElement.scrollTop>200?"block":"none";}
+  topBtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("year").textContent=new Date().getFullYear();
 
-    // Footer Year
-    document.getElementById("year").textContent=new Date().getFullYear();
+  // Theme toggle
+  const toggle=document.getElementById("themeToggle");
+  if(localStorage.getItem("theme")==="light")document.body.classList.add("light");
+  toggle.onclick=()=>{document.body.classList.toggle("light");localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark");toggle.textContent=document.body.classList.contains("light")?"☀️":"🌙";};
+  toggle.textContent=document.body.classList.contains("light")?"☀️":"🌙";
 
-    // Theme Toggle
-    function toggleTheme(){
-      document.body.classList.toggle("light");
-      document.querySelector(".theme-toggle").textContent=document.body.classList.contains("light")?"☀️":"🌙";
-    }
+  // Particles
+  const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+  resize();window.onresize=resize;
+  const particles=[];for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-0.5),dy:(Math.random()-0.5),r:Math.random()*2+1});}
+  function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--particle");particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,2*Math.PI);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(draw);}
+  draw();
 
-    // Particle Background
-    const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
-    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-    const particles=[];
-    for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
-    function drawParticles(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--particle");
-      particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});
-      requestAnimationFrame(drawParticles);
-    }
-    drawParticles();
-    window.onresize=()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-
-    // === Tic Tac Toe Game ===
-    const cells = document.querySelectorAll(".cell
+  // Tic Tac Toe
+  const cells=document.querySelectorAll(".cell"),status=document.getElementById("status"),reset=document.getElementById("resetBtn");
+  let board=["","","","","","","","",""],player="X",active=true;
+  const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  function check(){for(const [a,b,c]of wins){if(board[a]&&board[a]===board[b]&&board[a]===board[c]){status.textContent=`🎉 Player ${player} wins!`;active=false;return;}}if(!board.includes("")){status.textContent="😮 Draw!";active=false;}}
+  function clickCell(e){const i=e.target.dataset.index;if(board[i]||!active)return;board[i]=player;e.target.textContent=player;check();if(active){player=player==="X"?"O":"X";status.textContent=`Player ${player}'s turn`;}}
+  cells.forEach(c=>c.addEventListener("click",clickCell));
+  reset.onclick=()=>{board=["","","","","","","","",""];cells.forEach(c=>c.textContent="");player="X";active=true;status.textContent="Player X's turn";};
+})();
+</script>
+</body>
+</html>
