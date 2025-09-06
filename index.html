@@ -30,6 +30,16 @@
       scroll-behavior: smooth;
       transition: background 0.4s, color 0.4s;
     }
+    a { color: var(--primary); text-decoration: none; }
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      margin-top: 10px;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
+      font-weight: bold;
+    }
 
     /* Particle Background */
     #particles {
@@ -40,7 +50,7 @@
       background: var(--bg);
     }
 
-    /* === Navbar (Corrected for Responsiveness) === */
+    /* Navbar */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -56,14 +66,6 @@
       font-weight: bold;
       color: var(--primary);
       font-size: 20px;
-    }
-    .hamburger { /* New Hamburger Button Style */
-      display: none; /* Hidden by default */
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 24px;
-      cursor: pointer;
     }
     nav .links a {
       margin: 0 12px;
@@ -81,36 +83,6 @@
       color: #fff;
       font-weight: bold;
     }
-    
-    /* === Media Query for Mobile Navbar === */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block; /* Show hamburger on mobile */
-      }
-      .links {
-        display: none; /* Hide links by default on mobile */
-        position: absolute;
-        top: 60px; /* Adjust based on navbar height */
-        left: 0;
-        right: 0;
-        background: var(--card);
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      }
-      .links.active {
-        display: flex; /* Show links when hamburger is clicked */
-      }
-      .links a {
-        margin: 10px 0;
-      }
-      nav .theme-toggle {
-          margin-left: 15px; /* Add some space next to hamburger */
-      }
-    }
-
 
     /* Hero */
     .hero {
@@ -128,11 +100,7 @@
     .clock { margin-top: 20px; font-size: 1.4em; font-weight: bold; }
     .quote-box { margin-top: 15px; font-style: italic; font-size: 1em; color: #aaa; }
     .socials { margin-top: 20px; }
-    .socials a {
-      margin: 0 10px; text-decoration: none;
-      color: var(--primary); font-weight: bold;
-    }
-    .socials a:hover { color: #fff; }
+    .socials a { margin: 0 10px; font-weight: bold; }
 
     /* Sections */
     section {
@@ -145,8 +113,16 @@
     section h2 {
       text-align: center; font-size: 2em; margin-bottom: 40px; color: var(--primary);
     }
+    .card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      margin: 20px auto;
+      max-width: 800px;
+    }
 
-    /* Cards */
+    /* Skills & Projects Grid */
     .skills, .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -189,66 +165,52 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.6);
       transition: 0.3s;
-      z-index: 101; /* Ensure it's above other content */
     }
-    #topBtn:hover { background: #3392ff; }
 
     /* Tic Tac Toe */
-    #ticTacToe {
-      text-align: center;
-      margin-top: 20px;
-    }
+    #ticTacToe { text-align: center; margin-top: 20px; }
     .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      gap: 5px;
-      justify-content: center;
-      margin: 20px auto;
+      display: grid; grid-template-columns: repeat(3, 100px);
+      gap: 5px; justify-content: center; margin: 20px auto;
     }
     .cell {
       width: 100px; height: 100px;
       background: var(--card);
       border: 2px solid var(--primary);
-      display: flex;
-      align-items: center; justify-content: center;
-      font-size: 2em; font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2em; font-weight: bold; cursor: pointer;
     }
     .cell:hover { background: rgba(88,166,255,0.2); }
-    #status {
-      margin: 10px 0;
-      font-size: 1.2em;
-      font-weight: bold;
-      color: var(--primary);
-    }
+    #status { margin: 10px 0; font-size: 1.2em; font-weight: bold; color: var(--primary); }
     #ticTacToe button {
       padding: 8px 15px; border: none; border-radius: 6px;
-      background: var(--primary); color: white;
-      font-weight: bold; cursor: pointer;
+      background: var(--primary); color: white; font-weight: bold; cursor: pointer;
     }
-    #ticTacToe button:hover { background: #3392ff; }
   </style>
 </head>
 <body>
 
+  <!-- Particle Background -->
   <canvas id="particles"></canvas>
 
+  <!-- Navbar -->
   <nav>
     <div class="logo">Abdulla Syed</div>
-    <div style="display: flex; align-items: center;">
-        <div class="links">
-            <a href="#education">Education</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#achievements">Achievements</a>
-            <a href="#extracurriculars">Extracurriculars</a>
-            <a href="#game">Fun Zone 🎮</a>
-        </div>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-        <button class="hamburger">☰</button> </div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#extracurriculars">Extracurriculars</a>
+      <a href="#game">Fun Zone 🎮</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </nav>
 
+  <!-- Hero -->
   <div class="hero">
     <h1>Hi, I'm Abdulla 👋</h1>
     <p><span class="typed-text"></span></p>
@@ -261,12 +223,28 @@
     </div>
   </div>
 
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>Hi! I’m <b>Abdulla Syed</b>, an Electronics & Telecommunication Engineering student at 
+      <b>Siddaganga Institute of Technology</b>. I love solving real-world problems with 
+      <b>software and telecom systems</b>.</p>
+      <p>I’m building <b>AIGI – Ask It, Get It</b>, a portal for engineering students, and exploring 
+      <b>5G cloud-native networks, IoT projects, and software development</b>.  
+      My goal: to become a <b>Wireless Core Engineer</b> shaping the future of communication.</p>
+      <a href="ABDULLA_RESUME.pdf" download class="btn">📄 Download Resume</a>
+    </div>
+  </section>
+
+  <!-- Education -->
   <section id="education">
     <h2>Education</h2>
     <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
     <p>Pre-University (PCMB, 2022) | 91%</p>
   </section>
 
+  <!-- Skills -->
   <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
@@ -275,25 +253,37 @@
       <div class="skill"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
       <div class="skill"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
       <div class="skill"><b>Tools:</b> Git, VS Code, TinkerCad, AWR, XAMPP</div>
-      <div class="skill"><b>Others:</b> Team Management, Communication</div>
+      <div class="skill"><b>Others:</b> Event Planning, Communication, Team Management</div>
     </div>
   </section>
 
+  <!-- Projects -->
   <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
       <div class="project"><h3>AIGI – Ask It, Get It</h3><p>Centralized portal for academic resources & placements.</p></div>
-      <div class="project"><h3>Bandpass Filter Design</h3><p>Optimized RF filter for high selectivity.</p></div>
+      <div class="project"><h3>Bandpass Filter Design</h3><p>RF filter for high selectivity, IEEE paper.</p></div>
       <div class="project"><h3>Automated Irrigation System</h3><p>IoT-enabled smart irrigation with sensors.</p></div>
       <div class="project"><h3>Automated Grass Cutter (IoT)</h3><p>Self-operating IoT-based grass cutter.</p></div>
     </div>
   </section>
 
+  <!-- Experience -->
+  <section id="experience">
+    <h2>Academic Experience</h2>
+    <div class="card">
+      <h3>📑 Research Paper</h3>
+      <p>Co-authored <b>“Design and Analysis of Bandpass Filter with Improved Out-of-Band Characteristics Using Coupled Lines”</b>, presented at IEEE ICSSES 2025.</p>
+    </div>
+  </section>
+
+  <!-- Achievements -->
   <section id="achievements">
     <h2>Achievements</h2>
     <ul><li>Top 10 finalist – National Hackathon (IIC), 2024</li></ul>
   </section>
 
+  <!-- Extracurriculars -->
   <section id="extracurriculars">
     <h2>Extracurriculars</h2>
     <ul>
@@ -303,6 +293,7 @@
     </ul>
   </section>
 
+  <!-- Fun Zone -->
   <section id="game">
     <h2>🎮 Play Tic Tac Toe</h2>
     <div id="ticTacToe">
@@ -322,24 +313,20 @@
     </div>
   </section>
 
-  <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:abdulla.1si22et001@gmail.com">abdulla.1si22et001@gmail.com</a></p>
+      <p>Phone: +91 7795588802</p>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
   <button id="topBtn" onclick="scrollToTop()">↑</button>
 
   <script>
-    // === Hamburger Menu Toggle (New) ===
-    const hamburger = document.querySelector(".hamburger");
-    const navLinks = document.querySelector(".links");
-    hamburger.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-    // Close menu when a link is clicked
-    document.querySelectorAll('.links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
-    });
-
     // Typing Effect
     const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
     let textIndex = 0, charIndex = 0;
@@ -396,72 +383,17 @@
 
     // Particle Background
     const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
-    let particles=[];
-    function resizeCanvas() {
-        canvas.width=window.innerWidth; 
-        canvas.height=window.innerHeight;
-        particles = []; // Reset particles on resize
-        for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
-    }
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    const particles=[];
+    for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
     function drawParticles(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--particle");
       particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});
       requestAnimationFrame(drawParticles);
     }
-    window.onresize=resizeCanvas;
-    resizeCanvas();
     drawParticles();
+    window.onresize=()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 
     // === Tic Tac Toe Game ===
-    const cells = document.querySelectorAll(".cell");
-    const statusText = document.getElementById("status");
-    let currentPlayer = "X";
-    let gameActive = true;
-    let board = ["", "", "", "", "", "", "", "", ""];
-
-    const winningConditions = [
-      [0,1,2],[3,4,5],[6,7,8],
-      [0,3,6],[1,4,7],[2,5,8],
-      [0,4,8],[2,4,6]
-    ];
-
-    function checkWinner() {
-      for (let condition of winningConditions) {
-        const [a, b, c] = condition;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-          statusText.textContent = `🎉 Player ${currentPlayer} Wins!`;
-          gameActive = false;
-          return;
-        }
-      }
-      if (!board.includes("")) {
-        statusText.textContent = "😮 It's a Draw!";
-        gameActive = false;
-      }
-    }
-
-    function cellClick(e) {
-      const index = e.target.getAttribute("data-index");
-      if (board[index] !== "" || !gameActive) return;
-      board[index] = currentPlayer;
-      e.target.textContent = currentPlayer;
-      checkWinner();
-      if (gameActive) {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-        statusText.textContent = `Player ${currentPlayer}'s turn`;
-      }
-    }
-
-    function resetGame() {
-      board = ["", "", "", "", "", "", "", "", ""];
-      cells.forEach(c => c.textContent = "");
-      currentPlayer = "X";
-      gameActive = true;
-      statusText.textContent = "Player X's turn";
-    }
-
-    cells.forEach(cell => cell.addEventListener("click", cellClick));
-  </script>
-</body>
-</html>
+    const cells = document.querySelectorAll(".cell
