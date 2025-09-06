@@ -40,7 +40,7 @@
       background: var(--bg);
     }
 
-    /* Navbar */
+    /* === Navbar (Corrected for Responsiveness) === */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -56,6 +56,14 @@
       font-weight: bold;
       color: var(--primary);
       font-size: 20px;
+    }
+    .hamburger { /* New Hamburger Button Style */
+      display: none; /* Hidden by default */
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
     }
     nav .links a {
       margin: 0 12px;
@@ -73,6 +81,36 @@
       color: #fff;
       font-weight: bold;
     }
+    
+    /* === Media Query for Mobile Navbar === */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block; /* Show hamburger on mobile */
+      }
+      .links {
+        display: none; /* Hide links by default on mobile */
+        position: absolute;
+        top: 60px; /* Adjust based on navbar height */
+        left: 0;
+        right: 0;
+        background: var(--card);
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      }
+      .links.active {
+        display: flex; /* Show links when hamburger is clicked */
+      }
+      .links a {
+        margin: 10px 0;
+      }
+      nav .theme-toggle {
+          margin-left: 15px; /* Add some space next to hamburger */
+      }
+    }
+
 
     /* Hero */
     .hero {
@@ -151,6 +189,7 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.6);
       transition: 0.3s;
+      z-index: 101; /* Ensure it's above other content */
     }
     #topBtn:hover { background: #3392ff; }
 
@@ -193,24 +232,23 @@
 </head>
 <body>
 
-  <!-- Particle Background -->
   <canvas id="particles"></canvas>
 
-  <!-- Navbar -->
   <nav>
     <div class="logo">Abdulla Syed</div>
-    <div class="links">
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#extracurriculars">Extracurriculars</a>
-      <a href="#game">Fun Zone 🎮</a>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <div style="display: flex; align-items: center;">
+        <div class="links">
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#extracurriculars">Extracurriculars</a>
+            <a href="#game">Fun Zone 🎮</a>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        <button class="hamburger">☰</button> </div>
   </nav>
 
-  <!-- Hero -->
   <div class="hero">
     <h1>Hi, I'm Abdulla 👋</h1>
     <p><span class="typed-text"></span></p>
@@ -223,7 +261,6 @@
     </div>
   </div>
 
-  <!-- Sections -->
   <section id="education">
     <h2>Education</h2>
     <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
@@ -266,7 +303,6 @@
     </ul>
   </section>
 
-  <!-- Fun Zone -->
   <section id="game">
     <h2>🎮 Play Tic Tac Toe</h2>
     <div id="ticTacToe">
@@ -286,13 +322,24 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
 
-  <!-- Scroll to Top Button -->
   <button id="topBtn" onclick="scrollToTop()">↑</button>
 
   <script>
+    // === Hamburger Menu Toggle (New) ===
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".links");
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+    // Close menu when a link is clicked
+    document.querySelectorAll('.links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
+
     // Typing Effect
     const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
     let textIndex = 0, charIndex = 0;
@@ -349,17 +396,22 @@
 
     // Particle Background
     const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
-    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-    const particles=[];
-    for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
+    let particles=[];
+    function resizeCanvas() {
+        canvas.width=window.innerWidth; 
+        canvas.height=window.innerHeight;
+        particles = []; // Reset particles on resize
+        for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
+    }
     function drawParticles(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--particle");
       particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});
       requestAnimationFrame(drawParticles);
     }
+    window.onresize=resizeCanvas;
+    resizeCanvas();
     drawParticles();
-    window.onresize=()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 
     // === Tic Tac Toe Game ===
     const cells = document.querySelectorAll(".cell");
