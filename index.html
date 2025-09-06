@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary: #00e6e6;
-      --secondary: #00b3b3;
-      --bg: #0a0f1a;
-      --text: #f0f0f0;
-      --card: #141c2c;
+      --primary: #58a6ff;   /* Calm blue */
+      --bg: #0d1117;        /* Dark background */
+      --text: #e6edf3;      /* Soft white text */
+      --card: #161b22;      /* Card background */
+      --light-bg: #ffffff;
+      --light-text: #000000;
+      --light-card: #f2f2f2;
     }
     body {
       margin: 0;
@@ -18,7 +20,7 @@
       background: var(--bg);
       color: var(--text);
       scroll-behavior: smooth;
-      transition: background 0.5s, color 0.5s;
+      transition: background 0.4s, color 0.4s;
     }
 
     /* Navbar */
@@ -40,33 +42,35 @@
       color: var(--primary);
       font-size: 20px;
     }
-    nav a {
+    nav .links a {
       margin: 0 12px;
       text-decoration: none;
       color: var(--text);
       font-weight: 500;
     }
-    nav a:hover {
+    nav .links a:hover {
       color: var(--primary);
     }
+    nav .theme-toggle {
+      background: var(--primary);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+    }
 
-    /* Hero with animated gradient */
+    /* Hero */
     .hero {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: linear-gradient(270deg, #0a0f1a, #0f1f33, #141c2c);
-      background-size: 600% 600%;
-      animation: gradientMove 15s ease infinite;
+      background: linear-gradient(135deg, #0d1117, #161b22);
       padding: 20px;
       flex-direction: column;
-    }
-    @keyframes gradientMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
     }
     .hero h1 {
       font-size: 3em;
@@ -78,29 +82,19 @@
       margin-top: 10px;
     }
     .typed-text {
-      color: var(--secondary);
+      color: var(--primary);
       font-weight: bold;
-    }
-    .cursor {
-      display: inline-block;
-      background: var(--secondary);
-      width: 2px;
-      animation: blink 0.7s infinite;
-    }
-    @keyframes blink {
-      50% { background: transparent; }
     }
     .clock {
       margin-top: 20px;
       font-size: 1.4em;
       font-weight: bold;
-      color: #fff;
     }
     .quote-box {
       margin-top: 15px;
       font-style: italic;
       font-size: 1em;
-      color: #ccc;
+      color: #aaa;
     }
     .socials {
       margin-top: 20px;
@@ -110,10 +104,9 @@
       text-decoration: none;
       color: var(--primary);
       font-weight: bold;
-      transition: 0.3s;
     }
     .socials a:hover {
-      color: #ffffff;
+      color: #fff;
     }
 
     /* Sections */
@@ -144,12 +137,12 @@
       background: var(--card);
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .skill:hover, .project:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
     .project h3 {
       margin-top: 0;
@@ -163,7 +156,7 @@
       padding: 20px;
       border-top: 2px solid var(--primary);
       margin-top: 40px;
-      color: #aaa;
+      color: #888;
     }
 
     /* Scroll to top button */
@@ -183,20 +176,24 @@
       transition: 0.3s;
     }
     #topBtn:hover {
-      background: var(--secondary);
+      background: #3392ff;
     }
 
-    /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--primary);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
+    /* Light Theme */
+    body.light {
+      background: var(--light-bg);
+      color: var(--light-text);
+    }
+    body.light nav {
+      background: var(--light-card);
+    }
+    body.light .skill, body.light .project {
+      background: var(--light-card);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    body.light footer {
+      background: var(--light-card);
+      color: #555;
     }
   </style>
 </head>
@@ -205,19 +202,20 @@
   <!-- Navbar -->
   <nav>
     <div class="logo">Abdulla Syed</div>
-    <div>
+    <div class="links">
       <a href="#education">Education</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#achievements">Achievements</a>
       <a href="#extracurriculars">Extracurriculars</a>
     </div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </nav>
 
   <!-- Hero -->
   <div class="hero">
     <h1>Hi, I'm Abdulla 👋</h1>
-    <p><span class="typed-text"></span><span class="cursor"></span></p>
+    <p><span class="typed-text"></span></p>
     <div class="clock" id="clock"></div>
     <div class="quote-box" id="quote"></div>
     <div class="socials">
@@ -227,14 +225,13 @@
     </div>
   </div>
 
-  <!-- Education -->
+  <!-- Sections (Education, Skills, Projects, Achievements, Extracurriculars) -->
   <section id="education">
     <h2>Education</h2>
     <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
     <p>Pre-University (PCMB, 2022) | 91%</p>
   </section>
 
-  <!-- Skills -->
   <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
@@ -247,7 +244,6 @@
     </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
@@ -258,7 +254,6 @@
     </div>
   </section>
 
-  <!-- Achievements -->
   <section id="achievements">
     <h2>Achievements</h2>
     <ul>
@@ -266,7 +261,6 @@
     </ul>
   </section>
 
-  <!-- Extracurriculars -->
   <section id="extracurriculars">
     <h2>Extracurriculars</h2>
     <ul>
@@ -283,14 +277,12 @@
 
   <!-- Scroll to Top Button -->
   <button id="topBtn" onclick="scrollToTop()">↑</button>
-  <button class="theme-toggle" onclick="toggleTheme()">🌙/☀️</button>
 
   <script>
     // Typing Effect
     const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
     let textIndex = 0, charIndex = 0;
     const typedTextSpan = document.querySelector(".typed-text");
-
     function type() {
       if (charIndex < textArray[textIndex].length) {
         typedTextSpan.textContent += textArray[textIndex].charAt(charIndex);
@@ -318,7 +310,7 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Random Quotes
+    // Quotes
     const quotes = [
       "Code is like humor. When you have to explain it, it’s bad.",
       "Talk is cheap. Show me the code.",
@@ -328,12 +320,10 @@
     ];
     document.getElementById("quote").textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
-    // Scroll reveal
+    // Section fade-in
     const sections = document.querySelectorAll("section");
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
     }, { threshold: 0.1 });
     sections.forEach(sec => observer.observe(sec));
 
@@ -349,18 +339,10 @@
 
     // Theme toggle
     function toggleTheme() {
-      if (document.body.style.background === "white") {
-        document.body.style.background = "var(--bg)";
-        document.body.style.color = "var(--text)";
-      } else {
-        document.body.style.background = "white";
-        document.body.style.color = "black";
-      }
+      document.body.classList.toggle("light");
+      document.querySelector(".theme-toggle").textContent =
+        document.body.classList.contains("light") ? "☀️" : "🌙";
     }
-
-    // Fun easter egg
-    console.log("%cHey 👋 curious dev!", "color: cyan; font-size:18px; font-weight:bold;");
-    console.log("You found my secret console message! 🚀 Keep coding...");
   </script>
 </body>
 </html>
