@@ -1,335 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Abdulla Syed | Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root {
-      --primary: #58a6ff;
-      --bg: #0d1117;
-      --text: #e6edf3;
-      --card: #161b22;
-      --light-bg: #ffffff;
-      --light-text: #000000;
-      --light-card: #f2f2f2;
-    }
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      scroll-behavior: smooth;
-      transition: background 0.4s, color 0.4s;
-    }
-
-    /* Particle Background Canvas */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: var(--bg);
-    }
-
-    /* Navbar */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: var(--card);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 8%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      z-index: 100;
-    }
-    nav .logo {
-      font-weight: bold;
-      color: var(--primary);
-      font-size: 20px;
-    }
-    nav .links a {
-      margin: 0 12px;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-    }
-    nav .links a:hover { color: var(--primary); }
-    nav .theme-toggle {
-      background: var(--primary);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    /* Hero */
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
-      padding: 20px;
-    }
-    .hero h1 { font-size: 3em; margin: 0; color: var(--primary); }
-    .hero p { font-size: 1.2em; margin-top: 10px; }
-    .typed-text { color: var(--primary); font-weight: bold; }
-    .clock { margin-top: 20px; font-size: 1.4em; font-weight: bold; }
-    .quote-box { margin-top: 15px; font-style: italic; font-size: 1em; color: #aaa; }
-    .socials { margin-top: 20px; }
-    .socials a {
-      margin: 0 10px; text-decoration: none;
-      color: var(--primary); font-weight: bold;
-    }
-    .socials a:hover { color: #fff; }
-
-    /* Sections */
-    section {
-      padding: 80px 10% 40px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-    section.visible { opacity: 1; transform: translateY(0); }
-    section h2 {
-      text-align: center; font-size: 2em; margin-bottom: 40px; color: var(--primary);
-    }
-
-    /* Cards */
-    .skills, .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .skill, .project {
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .skill:hover, .project:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
-    .project h3 { margin-top: 0; color: var(--primary); }
-
-    /* Footer */
-    footer {
-      background: var(--card);
-      text-align: center;
-      padding: 20px;
-      border-top: 2px solid var(--primary);
-      margin-top: 40px;
-      color: #888;
-    }
-
-    /* Scroll to top button */
-    #topBtn {
-      display: none;
-      position: fixed;
-      bottom: 30px; right: 30px;
-      background: var(--primary);
-      border: none;
-      color: #000;
-      font-size: 20px;
-      border-radius: 50%;
-      padding: 10px 15px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-      transition: 0.3s;
-    }
-    #topBtn:hover { background: #3392ff; }
-
-    /* Light Theme */
-    body.light { background: var(--light-bg); color: var(--light-text); }
-    body.light nav { background: var(--light-card); }
-    body.light .skill, body.light .project { background: var(--light-card); }
-    body.light footer { background: var(--light-card); color: #555; }
-
-    /* Snake Game Overlay */
-    #snakeCanvas {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 200;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Particle Background -->
-  <canvas id="particles"></canvas>
-
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">Abdulla Syed</div>
-    <div class="links">
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#extracurriculars">Extracurriculars</a>
+<!-- Add this section before the footer -->
+<section id="game">
+  <h2>🎮 Play Tic Tac Toe</h2>
+  <div id="ticTacToe">
+    <div class="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  </nav>
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>Hi, I'm Abdulla 👋</h1>
-    <p><span class="typed-text"></span></p>
-    <div class="clock" id="clock"></div>
-    <div class="quote-box" id="quote"></div>
-    <div class="socials">
-      <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
-      <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
-      <a href="https://www.codechef.com/users/sit1si22et001" target="_blank">CodeChef</a>
-    </div>
+    <p id="status">Player X's turn</p>
+    <button onclick="resetGame()">🔄 Restart</button>
   </div>
+</section>
 
-  <!-- Sections -->
-  <section id="education">
-    <h2>Education</h2>
-    <p>B.E. Electronics & Telecommunication (SIT, 2022–2026) | CGPA: 8.4</p>
-    <p>Pre-University (PCMB, 2022) | 91%</p>
-  </section>
+<style>
+  #ticTacToe {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+  }
+  .cell {
+    width: 100px;
+    height: 100px;
+    background: var(--card);
+    border: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .cell:hover {
+    background: rgba(88, 166, 255, 0.2);
+  }
+  #status {
+    margin: 10px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary);
+  }
+  #ticTacToe button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #ticTacToe button:hover {
+    background: #3392ff;
+  }
+</style>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <div class="skill"><b>Languages:</b> C++</div>
-      <div class="skill"><b>Web:</b> HTML, CSS</div>
-      <div class="skill"><b>Database & Framework:</b> SQL, CodeIgniter 3</div>
-      <div class="skill"><b>CS Fundamentals:</b> DSA, OOP, OS, DCN</div>
-      <div class="skill"><b>Tools:</b> Git, VS Code, TinkerCad, AWR, XAMPP</div>
-      <div class="skill"><b>Others:</b> Team Management, Communication</div>
-    </div>
-  </section>
+<script>
+  // === Tic Tac Toe Game ===
+  const cells = document.querySelectorAll(".cell");
+  const statusText = document.getElementById("status");
+  let currentPlayer = "X";
+  let gameActive = true;
+  let board = ["", "", "", "", "", "", "", "", ""];
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project"><h3>AIGI – Ask It, Get It</h3><p>Centralized portal for academic resources & placements.</p></div>
-      <div class="project"><h3>Bandpass Filter Design</h3><p>Optimized RF filter for high selectivity.</p></div>
-      <div class="project"><h3>Automated Irrigation System</h3><p>IoT-enabled smart irrigation with sensors.</p></div>
-      <div class="project"><h3>Automated Grass Cutter (IoT)</h3><p>Self-operating IoT-based grass cutter.</p></div>
-    </div>
-  </section>
+  const winningConditions = [
+    [0,1,2],[3,4,5],[6,7,8], // rows
+    [0,3,6],[1,4,7],[2,5,8], // cols
+    [0,4,8],[2,4,6]          // diagonals
+  ];
 
-  <section id="achievements">
-    <h2>Achievements</h2>
-    <ul><li>Top 10 finalist – National Hackathon (IIC), 2024</li></ul>
-  </section>
-
-  <section id="extracurriculars">
-    <h2>Extracurriculars</h2>
-    <ul>
-      <li>Event Management Lead – IIC, SIT</li>
-      <li>Volunteer – Freshers recruitment (2025)</li>
-      <li>Led volunteers in college fests & departmental events</li>
-    </ul>
-  </section>
-
-  <!-- Footer -->
-  <footer>© <span id="year"></span> Abdulla Syed | Built with ❤️</footer>
-
-  <!-- Scroll to Top Button -->
-  <button id="topBtn" onclick="scrollToTop()">↑</button>
-
-  <!-- Snake Game Canvas -->
-  <canvas id="snakeCanvas"></canvas>
-
-  <script>
-    // Typing Effect
-    const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
-    let textIndex = 0, charIndex = 0;
-    const typedTextSpan = document.querySelector(".typed-text");
-    function type() {
-      if (charIndex < textArray[textIndex].length) {
-        typedTextSpan.textContent += textArray[textIndex].charAt(charIndex++);
-        setTimeout(type, 100);
-      } else setTimeout(erase, 2000);
+  function checkWinner() {
+    for (let condition of winningConditions) {
+      const [a, b, c] = condition;
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        statusText.textContent = `🎉 Player ${currentPlayer} Wins!`;
+        gameActive = false;
+        return;
+      }
     }
-    function erase() {
-      if (charIndex > 0) {
-        typedTextSpan.textContent = textArray[textIndex].substring(0, --charIndex);
-        setTimeout(erase, 50);
-      } else { textIndex = (textIndex + 1) % textArray.length; setTimeout(type, 500); }
+    if (!board.includes("")) {
+      statusText.textContent = "😮 It's a Draw!";
+      gameActive = false;
     }
-    document.addEventListener("DOMContentLoaded", type);
+  }
 
-    // Clock
-    function updateClock() {
-      document.getElementById("clock").textContent = new Date().toLocaleTimeString();
+  function cellClick(e) {
+    const index = e.target.getAttribute("data-index");
+    if (board[index] !== "" || !gameActive) return;
+    board[index] = currentPlayer;
+    e.target.textContent = currentPlayer;
+    checkWinner();
+    if (gameActive) {
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+      statusText.textContent = `Player ${currentPlayer}'s turn`;
     }
-    setInterval(updateClock, 1000); updateClock();
+  }
 
-    // Random Quote
-    const quotes = [
-      "Code is like humor. When you have to explain it, it’s bad.",
-      "Talk is cheap. Show me the code.",
-      "First, solve the problem. Then, write the code.",
-      "Knowledge is power, but enthusiasm pulls the switch.",
-      "Stay hungry, stay foolish."
-    ];
-    document.getElementById("quote").textContent = quotes[Math.floor(Math.random()*quotes.length)];
+  function resetGame() {
+    board = ["", "", "", "", "", "", "", "", ""];
+    cells.forEach(c => c.textContent = "");
+    currentPlayer = "X";
+    gameActive = true;
+    statusText.textContent = "Player X's turn";
+  }
 
-    // Fade in sections
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add("visible"); });
-    },{threshold:0.1});
-    document.querySelectorAll("section").forEach(sec=>observer.observe(sec));
-
-    // Scroll top
-    const topBtn=document.getElementById("topBtn");
-    window.onscroll=()=>{topBtn.style.display=(document.documentElement.scrollTop>200)?"block":"none";}
-    function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
-
-    // Footer Year
-    document.getElementById("year").textContent=new Date().getFullYear();
-
-    // Theme Toggle
-    function toggleTheme(){
-      document.body.classList.toggle("light");
-      document.querySelector(".theme-toggle").textContent=document.body.classList.contains("light")?"☀️":"🌙";
-    }
-
-    // Particle Background
-    const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");
-    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-    const particles=[]; for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*3+1,dx:(Math.random()-0.5)*1,dy:(Math.random()-0.5)*1});}
-    function drawParticles(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#58a6ff";particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>canvas.width)p.dx*=-1;if(p.y<0||p.y>canvas.height)p.dy*=-1;});requestAnimationFrame(drawParticles);}
-    drawParticles();
-    window.onresize=()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-
-    // Snake Game Easter Egg
-    console.log("%cEaster Egg!","color:cyan;font-size:16px");
-    console.log("Type snake() in console to play 🐍");
-    function snake(){
-      const sc=document.getElementById("snakeCanvas");const ctx=sc.getContext("2d");
-      sc.style.display="block";sc.width=window.innerWidth;sc.height=window.innerHeight;
-      let box=20;let snake=[{x:9*box,y:10*box}];let food={x:Math.floor(Math.random()*20)*box,y:Math.floor(Math.random()*20)*box};let d;document.addEventListener("keydown",dir);
-      function dir(e){if(e.keyCode==37&&d!="RIGHT")d="LEFT";else if(e.keyCode==38&&d!="DOWN")d="UP";else if(e.keyCode==39&&d!="LEFT")d="RIGHT";else if(e.keyCode==40&&d!="UP")d="DOWN";}
-      function draw(){ctx.fillStyle="black";ctx.fillRect(0,0,sc.width,sc.height);
-        for(let i=0;i<snake.length;i++){ctx.fillStyle=i==0?"lime":"white";ctx.fillRect(snake[i].x,snake[i].y,box,box);}
-        ctx.fillStyle="red";ctx.fillRect(food.x,food.y,box,box);
-        let snakeX=snake[0].x;let snakeY=snake[0].y;
-        if(d=="LEFT")snakeX-=box;if(d=="UP")snakeY-=box;if(d=="RIGHT")snakeX+=box;if(d=="DOWN")snakeY+=box;
-        if(snakeX==food.x&&snakeY==food.y){food={x:Math.floor(Math.random()*20)*box,y:Math.floor(Math.random()*20)*box};}
-        else{snake.pop();}
-        let newHead={x:snakeX,y:snakeY};
-        if(snakeX<0||snakeY<0||snakeX>=sc.width||snakeY>=sc.height||collision(newHead,snake)){alert("Game Over! Press F12 and type snake() again to replay.");sc.style.display="none";clearInterval(game);return;}
-        snake.unshift(newHead);}
-      function collision(head,array){for(let i=0;i<array.length;i++){if(head.x==array[i].x&&head.y==array[i].y){return true;}}return false;}
-      let game=setInterval(draw,100);}
-  </script>
-</body>
-</html>
+  cells.forEach(cell => cell.addEventListener("click", cellClick));
+</script>
