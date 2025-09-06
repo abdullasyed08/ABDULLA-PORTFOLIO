@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --primary: #00e6e6;   /* Teal/Cyan accent */
+      --primary: #00e6e6;
       --secondary: #00b3b3;
-      --bg: #0a0f1a;        /* Dark background */
-      --text: #f0f0f0;      /* Light text */
-      --card: #141c2c;      /* Card background */
+      --bg: #0a0f1a;
+      --text: #f0f0f0;
+      --card: #141c2c;
     }
     body {
       margin: 0;
@@ -68,6 +68,19 @@
       font-size: 1.2em;
       margin-top: 10px;
     }
+    .typed-text {
+      color: var(--secondary);
+      font-weight: bold;
+    }
+    .cursor {
+      display: inline-block;
+      background: var(--secondary);
+      width: 2px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      50% { background: transparent; }
+    }
     .socials {
       margin-top: 20px;
     }
@@ -85,6 +98,13 @@
     /* Section */
     section {
       padding: 80px 10% 40px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     section h2 {
       text-align: center;
@@ -93,57 +113,36 @@
       color: var(--primary);
     }
 
-    /* Education */
-    .timeline {
-      border-left: 3px solid var(--primary);
-      padding-left: 20px;
-    }
-    .timeline div {
-      margin-bottom: 25px;
-    }
-    .timeline h3 {
-      margin: 0;
-      color: var(--primary);
-    }
-
-    /* Skills */
-    .skills {
+    /* Cards */
+    .skills, .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
     }
-    .skill {
-      background: var(--card);
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    /* Projects */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .project {
+    .skill, .project {
       background: var(--card);
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .project:hover {
-      transform: translateY(-5px);
+    .skill:hover, .project:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     }
     .project h3 {
       margin-top: 0;
       color: var(--primary);
     }
 
-    /* Lists */
-    ul {
-      line-height: 1.8;
+    /* Timeline */
+    .timeline {
+      border-left: 3px solid var(--primary);
+      padding-left: 20px;
+    }
+    .timeline h3 {
+      margin: 0;
+      color: var(--primary);
     }
 
     /* Footer */
@@ -156,11 +155,24 @@
       color: #aaa;
     }
 
-    /* Responsive */
-    @media(max-width: 768px) {
-      .hero h1 { font-size: 2.2em; }
-      nav { flex-direction: column; }
-      nav a { display: inline-block; margin: 8px; }
+    /* Scroll to top button */
+    #topBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      border: none;
+      color: #000;
+      font-size: 20px;
+      border-radius: 50%;
+      padding: 10px 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      transition: 0.3s;
+    }
+    #topBtn:hover {
+      background: var(--secondary);
     }
   </style>
 </head>
@@ -182,8 +194,7 @@
   <div class="hero">
     <div>
       <h1>Hi, I'm Abdulla 👋</h1>
-      <p>Engineering Student | Developer | Tech Enthusiast</p>
-      <p>📞 +91 7795588802 | <a href="mailto:abdulla.1si22et001@gmail.com" style="color:var(--primary);">Email Me</a></p>
+      <p><span class="typed-text"></span><span class="cursor"></span></p>
       <div class="socials">
         <a href="http://www.linkedin.com/in/abdullasyed08" target="_blank">LinkedIn</a>
         <a href="https://github.com/abdullasyed08" target="_blank">GitHub</a>
@@ -267,8 +278,70 @@
 
   <!-- Footer -->
   <footer>
-    © 2025 Abdulla Syed | Built with ❤️
+    © <span id="year"></span> Abdulla Syed | Built with ❤️
   </footer>
 
+  <!-- Scroll to Top Button -->
+  <button id="topBtn" onclick="scrollToTop()">↑</button>
+
+  <script>
+    // Typing Effect
+    const textArray = ["Engineering Student", "Developer", "Tech Enthusiast"];
+    let textIndex = 0;
+    let charIndex = 0;
+    const typedTextSpan = document.querySelector(".typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+
+    function type() {
+      if (charIndex < textArray[textIndex].length) {
+        typedTextSpan.textContent += textArray[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        textIndex++;
+        if (textIndex >= textArray.length) textIndex = 0;
+        setTimeout(type, 500);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      if (textArray.length) setTimeout(type, 500);
+    });
+
+    // Section fade-in on scroll
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(sec => observer.observe(sec));
+
+    // Scroll to top button
+    const topBtn = document.getElementById("topBtn");
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Dynamic year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
